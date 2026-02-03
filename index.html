@@ -1,0 +1,817 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Capaian SMPIT AL FALAH - Januari 2026</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #2c3e50 0%, #4a6491 100%);
+            padding: 20px;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+        }
+
+        header {
+            background: linear-gradient(135deg, #1a3a6c 0%, #2c5282 51%, #1e40af 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 2.8em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .subtitle {
+            font-size: 1.3em;
+            opacity: 0.95;
+            margin-top: 5px;
+        }
+
+        .controls {
+            padding: 25px;
+            background: #f8f9fa;
+            border-bottom: 3px solid #e9ecef;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .search-box {
+            flex: 1;
+            min-width: 300px;
+            position: relative;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 14px 25px;
+            border: 2px solid #ddd;
+            border-radius: 50px;
+            font-size: 16px;
+            transition: all 0.3s;
+            background: white;
+        }
+
+        .search-box input:focus {
+            border-color: #1e40af;
+            outline: none;
+            box-shadow: 0 0 15px rgba(30, 64, 175, 0.3);
+        }
+
+        .filter-group {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        select {
+            padding: 12px 18px;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            font-size: 15px;
+            background: white;
+            cursor: pointer;
+            transition: all 0.3s;
+            min-width: 180px;
+        }
+
+        select:focus {
+            border-color: #1e40af;
+            outline: none;
+            box-shadow: 0 0 10px rgba(30, 64, 175, 0.2);
+        }
+
+        .stats {
+            padding: 20px;
+            background: linear-gradient(135deg, #3b82f6 0%, #60a5fa 100%);
+            border-bottom: 3px solid #2563eb;
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            color: white;
+        }
+
+        .stat-card {
+            text-align: center;
+            padding: 15px 25px;
+            min-width: 150px;
+        }
+
+        .stat-number {
+            font-size: 2.5em;
+            font-weight: bold;
+            color: white;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+        }
+
+        .stat-label {
+            font-size: 1em;
+            opacity: 0.95;
+            margin-top: 5px;
+        }
+
+        .halaqah-tabs {
+            display: flex;
+            background: #e0e7ff;
+            padding: 10px;
+            border-bottom: 3px solid #c7d2fe;
+        }
+
+        .halaqah-tab {
+            padding: 12px 25px;
+            cursor: pointer;
+            border-radius: 8px;
+            margin: 0 5px;
+            font-weight: 600;
+            transition: all 0.3s;
+            background: white;
+            border: 2px solid #d1d5db;
+        }
+
+        .halaqah-tab:hover {
+            background: #bfdbfe;
+            border-color: #1e40af;
+        }
+
+        .halaqah-tab.active {
+            background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
+            color: white;
+            border-color: #1e40af;
+            box-shadow: 0 4px 6px rgba(30, 64, 175, 0.3);
+        }
+
+        .student-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+            gap: 25px;
+            padding: 30px;
+            background: #f9fafb;
+        }
+
+        .student-card {
+            background: white;
+            border: 3px solid #e5e7eb;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+            transition: all 0.4s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .student-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 8px;
+            height: 100%;
+            background: linear-gradient(180deg, #1e40af 0%, #3b82f6 100%);
+        }
+
+        .student-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 30px rgba(30, 64, 175, 0.25);
+            border-color: #1e40af;
+        }
+
+        .student-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #f3f4f6;
+        }
+
+        .student-number {
+            background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 18px;
+            flex-shrink: 0;
+        }
+
+        .student-info {
+            flex: 1;
+            margin-left: 15px;
+        }
+
+        .student-name {
+            font-size: 1.5em;
+            font-weight: 700;
+            color: #1e40af;
+            margin-bottom: 5px;
+            line-height: 1.3;
+        }
+
+        .student-class {
+            background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
+            color: white;
+            padding: 6px 16px;
+            border-radius: 25px;
+            font-size: 1em;
+            font-weight: 600;
+            display: inline-block;
+        }
+
+        .halaqah-badge {
+            background: #fbbf24;
+            color: #92400e;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: 600;
+            margin-left: 10px;
+        }
+
+        .achievement {
+            margin: 15px 0;
+            padding: 15px;
+            background: #f0f9ff;
+            border-radius: 10px;
+            border-left: 5px solid #3b82f6;
+            transition: all 0.3s;
+        }
+
+        .student-card:hover .achievement {
+            background: #dbeafe;
+            border-left-color: #1e40af;
+        }
+
+        .achievement-label {
+            font-size: 0.95em;
+            color: #4b5563;
+            margin-bottom: 8px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .achievement-label i {
+            font-size: 1.2em;
+        }
+
+        .achievement-value {
+            font-size: 1.2em;
+            color: #1e40af;
+            font-weight: 700;
+            line-height: 1.5;
+        }
+
+        .juz-info {
+            background: #dbeafe;
+            padding: 10px;
+            border-radius: 8px;
+            margin-top: 8px;
+            font-size: 0.9em;
+            color: #1e40af;
+        }
+
+        .no-data {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 60px 20px;
+            color: #9ca3af;
+            font-size: 1.5em;
+        }
+
+        .no-data i {
+            font-size: 3em;
+            margin-bottom: 20px;
+            opacity: 0.5;
+        }
+
+        @media (max-width: 968px) {
+            .student-grid {
+                grid-template-columns: 1fr;
+            }
+
+            h1 {
+                font-size: 2em;
+            }
+
+            .controls {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .filter-group {
+                width: 100%;
+                justify-content: center;
+            }
+
+            select {
+                width: 100%;
+                min-width: auto;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .halaqah-tabs {
+                flex-wrap: wrap;
+            }
+
+            .halaqah-tab {
+                padding: 8px 15px;
+                font-size: 0.85em;
+                margin: 3px;
+            }
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            backdrop-filter: blur(5px);
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            max-width: 700px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            animation: modalSlide 0.3s ease;
+        }
+
+        @keyframes modalSlide {
+            from {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 3px solid #1e40af;
+        }
+
+        .close-modal {
+            background: linear-gradient(135deg, #ef4444 0%, #f87171 100%);
+            border: none;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            font-size: 1.8em;
+            cursor: pointer;
+            color: white;
+            transition: all 0.3s;
+            box-shadow: 0 4px 6px rgba(239, 68, 68, 0.3);
+        }
+
+        .close-modal:hover {
+            transform: rotate(90deg) scale(1.1);
+            box-shadow: 0 6px 12px rgba(239, 68, 68, 0.5);
+        }
+
+        .modal-detail {
+            margin: 20px 0;
+            padding: 20px;
+            background: #f8fafc;
+            border-radius: 12px;
+            border-left: 5px solid #1e40af;
+        }
+
+        .modal-label {
+            font-weight: 600;
+            color: #4b5563;
+            margin-bottom: 8px;
+            font-size: 1.1em;
+        }
+
+        .modal-value {
+            font-size: 1.3em;
+            color: #1e40af;
+            font-weight: 700;
+            line-height: 1.6;
+        }
+
+        .badge-super {
+            background: linear-gradient(135deg, #f59e0b 0%, #ea580c 100%);
+            color: white;
+        }
+
+        .badge-makkah {
+            background: linear-gradient(135deg, #dc2626 0%, #ef4444 100%);
+            color: white;
+        }
+
+        .badge-madinah {
+            background: linear-gradient(135deg, #059669 0%, #10b981 100%);
+            color: white;
+        }
+
+        .badge-istanbul {
+            background: linear-gradient(135deg, #7c3aed 0%, #8b5cf6 100%);
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>📊 CAPAIAN SMPIT AL FALAH</h1>
+            <p class="subtitle">Bulan Januari 2026</p>
+        </header>
+
+        <div class="controls">
+            <div class="search-box">
+                <input type="text" id="searchInput" placeholder="🔍 Cari nama siswa..." onkeyup="filterStudents()">
+            </div>
+            <div class="filter-group">
+                <select id="halaqahFilter" onchange="filterStudents()">
+                    <option value="">Semua Halaqah</option>
+                    <option value="SUPER CLASS">SUPER CLASS</option>
+                    <option value="MAKKAH">MAKKAH</option>
+                    <option value="MADINAH">MADINAH</option>
+                    <option value="ISTANBUL">ISTANBUL</option>
+                </select>
+                <select id="classFilter" onchange="filterStudents()">
+                    <option value="">Semua Kelas</option>
+                    <option value="7">Kelas 7</option>
+                    <option value="8">Kelas 8</option>
+                    <option value="9">Kelas 9</option>
+                </select>
+                <select id="subjectFilter" onchange="filterStudents()">
+                    <option value="">Semua Mata Pelajaran</option>
+                    <option value="tahsin">Tahsin</option>
+                    <option value="tahfidz">Tahfidz</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="stats">
+            <div class="stat-card">
+                <div class="stat-number" id="totalStudents">0</div>
+                <div class="stat-label">Total Siswa</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="filteredCount">0</div>
+                <div class="stat-label">Siswa Ditampilkan</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="halaqahCount">4</div>
+                <div class="stat-label">Jumlah Halaqah</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="classLevelCount">3</div>
+                <div class="stat-label">Tingkat Kelas</div>
+            </div>
+        </div>
+
+        <div class="halaqah-tabs">
+            <div class="halaqah-tab active" onclick="filterByHalaqah('')">Semua Halaqah</div>
+            <div class="halaqah-tab" onclick="filterByHalaqah('SUPER CLASS')">SUPER CLASS</div>
+            <div class="halaqah-tab" onclick="filterByHalaqah('MAKKAH')">MAKKAH</div>
+            <div class="halaqah-tab" onclick="filterByHalaqah('MADINAH')">MADINAH</div>
+            <div class="halaqah-tab" onclick="filterByHalaqah('ISTANBUL')">ISTANBUL</div>
+        </div>
+
+        <div class="student-grid" id="studentGrid">
+            <!-- Data siswa akan ditampilkan di sini -->
+        </div>
+    </div>
+
+    <div class="modal" id="studentModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modalStudentName">Nama Siswa</h2>
+                <button class="close-modal" onclick="closeModal()">&times;</button>
+            </div>
+            <div id="modalContent">
+                <!-- Detail siswa akan ditampilkan di sini -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Data siswa dari file Excel SMPIT AL FALAH
+        const studentsData = [
+            // SUPER CLASS
+            { no: 1, name: "Asyifa Putri Ar-Rumi", class: "9", halaqah: "SUPER CLASS", tahsin: "-", tahfidz: "(10 Juz: 30,29,28,27,26,1,2,3,4,5)" },
+            { no: 2, name: "Asyifa Aulia Putri", class: "9", halaqah: "SUPER CLASS", tahsin: "-", tahfidz: "(7 Juz: 30,29,28,27,26,1,2)" },
+            { no: 3, name: "Calissa Hasna Mahayya", class: "9", halaqah: "SUPER CLASS", tahsin: "-", tahfidz: "(7 Juz: 30,29,28,27,26,1,2)" },
+            { no: 4, name: "Izzis Hanum Safariena Bisri", class: "9", halaqah: "SUPER CLASS", tahsin: "-", tahfidz: "Al Baqarah 1-61 (5.5 Juz: 30,29,28,27,26,1)" },
+            { no: 5, name: "Ezha Pratista", class: "9", halaqah: "SUPER CLASS", tahsin: "-", tahfidz: "(5 Juz: 30,29,28,27,26)" },
+            { no: 6, name: "Afifah Ummu Khairiyah", class: "9", halaqah: "SUPER CLASS", tahsin: "-", tahfidz: "Ar Rahman (3.5 Juz: 30,29,28,27)" },
+            { no: 7, name: "Khotimatul Husna Kamila Ahmad", class: "7", halaqah: "SUPER CLASS", tahsin: "-", tahfidz: "Al Baqarah 1-61 (5.5 Juz: 30,29,28,27,26,1)" },
+            { no: 8, name: "Queensha Aurellia Triyadi", class: "9", halaqah: "SUPER CLASS", tahsin: "-", tahfidz: "Al Munafiqun (2.5 Juz: 30,29,28)" },
+            { no: 9, name: "Fathin Daffa Al-Ghanis", class: "9", halaqah: "SUPER CLASS", tahsin: "-", tahfidz: "(7.5 Juz: 30,29,28,27,26,25,1,2)" },
+            { no: 10, name: "Ahmad Haikal Al Farisi", class: "9", halaqah: "SUPER CLASS", tahsin: "-", tahfidz: "Ath Thalaq 1-5 (3 Juz {-1 Surat}: 30,29,28)" },
+            { no: 11, name: "Muhammad Hadid Zulfikar", class: "9", halaqah: "SUPER CLASS", tahsin: "-", tahfidz: "At Tahrim 1-2 (3 Juz: 30,29,28)" },
+            { no: 12, name: "Mohammad Rasya Ammar Faizi", class: "8", halaqah: "SUPER CLASS", tahsin: "-", tahfidz: "(15 Juz: 30,29,28,27,26,1,2,3,4,5,6,7,8,9,10)" },
+            
+            // MAKKAH
+            { no: 1, name: "Najib Dzakhwan Mumtaaz", class: "8", halaqah: "MAKKAH", tahsin: "-", tahfidz: "Al Insan (2 Juz: 30,29)" },
+            { no: 2, name: "Kenzie Rasendriya Tungga", class: "8", halaqah: "MAKKAH", tahsin: "-", tahfidz: "(3 Juz: 30,29,28)" },
+            { no: 3, name: "Damar Hasybi Al Rasit", class: "8", halaqah: "MAKKAH", tahsin: "-", tahfidz: "Al Insan (2 Juz: 30,29)" },
+            { no: 4, name: "Karim Banzema", class: "8", halaqah: "MAKKAH", tahsin: "-", tahfidz: "Al Hasyr (2 Juz + 2 Surat: 30,29,28)" },
+            { no: 5, name: "Al Fath Syamil", class: "8", halaqah: "MAKKAH", tahsin: "-", tahfidz: "Al Munafiqun (2.5 Juz: 30,29,28)" },
+            { no: 6, name: "Muhammad Abyan Pranoto", class: "8", halaqah: "MAKKAH", tahsin: "-", tahfidz: "Al Mujadalah 1-7 (2 Juz +1 Surat: 30,29,28)" },
+            { no: 7, name: "Faris Azka Rabbani", class: "8", halaqah: "MAKKAH", tahsin: "-", tahfidz: "Al Hasyr (2 Juz + 2 Surat: 30,29,28)" },
+            { no: 8, name: "Aisyah Syaqilla", class: "7", halaqah: "MAKKAH", tahsin: "-", tahfidz: "Al Mumtahanah 1-7 (2.5 Juz: 30,29,28)" },
+            { no: 9, name: "Nabila", class: "7", halaqah: "MAKKAH", tahsin: "-", tahfidz: "At Taghabun 1-9 (2.5 Juz: 30,29,28)" },
+            { no: 10, name: "Faiza Amira Mustaqim", class: "7", halaqah: "MAKKAH", tahsin: "-", tahfidz: "(4 Juz: 30,29,28,27)" },
+            { no: 11, name: "Olivia Yasmina Putri Yasin", class: "8", halaqah: "MAKKAH", tahsin: "-", tahfidz: "Al Mujadalah 1-16 (2 Juz + 1 Surat: 30,29,28)" },
+            { no: 12, name: "Steila Rahmadiena Permana", class: "7", halaqah: "MAKKAH", tahsin: "-", tahfidz: "Al Qamar 1-27 (3.5 Juz: 30,29,28,27)" },
+            { no: 13, name: "Bilqis Danastri Fathimah", class: "8", halaqah: "MAKKAH", tahsin: "-", tahfidz: "Al Mujadalah 1-16 (2 Juz + 1 Surat: 30,29,28)" },
+            { no: 14, name: "Fakhira Khairunnisa", class: "8", halaqah: "MAKKAH", tahsin: "-", tahfidz: "Al Munafiqun 1-6 (2.5 Juz: 30,29,28)" },
+            { no: 15, name: "Malik", class: "8", halaqah: "MAKKAH", tahsin: "-", tahfidz: "Nuh (1.5 Juz: 30,29)" },
+            
+            // MADINAH
+            { no: 1, name: "Abyan Faqih", class: "9", halaqah: "MADINAH", tahsin: "-", tahfidz: "Al-mursalat : 50" },
+            { no: 2, name: "Akyas Khairul Azzam", class: "9", halaqah: "MADINAH", tahsin: "-", tahfidz: "Al-Insan : 20" },
+            { no: 3, name: "Zivana Alvari Fabriano", class: "9", halaqah: "MADINAH", tahsin: "-", tahfidz: "Al-mursalat : 40" },
+            { no: 4, name: "Muhammad Tizan Surya Darma", class: "8", halaqah: "MADINAH", tahsin: "-", tahfidz: "Al-insan : 21" },
+            { no: 5, name: "Fawwaz Abiyyu Taher", class: "8", halaqah: "MADINAH", tahsin: "-", tahfidz: "Al-Mursalat : 38" },
+            { no: 6, name: "Bimantara Satya Alfarizki", class: "9", halaqah: "MADINAH", tahsin: "-", tahfidz: "Al-insan : 19" },
+            { no: 7, name: "Fattah Rizki", class: "9", halaqah: "MADINAH", tahsin: "-", tahfidz: "Al-qolam : 30" },
+            { no: 8, name: "Rafky Azhar Kurniawan", class: "9", halaqah: "MADINAH", tahsin: "-", tahfidz: "Al-haqqah : 22" },
+            { no: 9, name: "Fakhri Abdurrahman", class: "7", halaqah: "MADINAH", tahsin: "-", tahfidz: "-" },
+            { no: 10, name: "Fairuz Zunnurain Izzatunnisa", class: "7", halaqah: "MADINAH", tahsin: "-", tahfidz: "Al-muzammil : 16" },
+            { no: 11, name: "Adelia Tsaqifa Azzahra", class: "7", halaqah: "MADINAH", tahsin: "-", tahfidz: "Al-hasr : 24" },
+            { no: 12, name: "Farah Faiza Javier", class: "7", halaqah: "MADINAH", tahsin: "-", tahfidz: "Al- mumtahanah : 9" },
+            { no: 13, name: "Danish Shaqeena Azzahra", class: "7", halaqah: "MADINAH", tahsin: "-", tahfidz: "Al-hasr : 10" },
+            { no: 14, name: "Muhammad Ubaidillah", class: "8", halaqah: "MADINAH", tahsin: "-", tahfidz: "Al- muzammil : 9" },
+            { no: 15, name: "Revalina Asyifa Aryo Nurfadia", class: "7", halaqah: "MADINAH", tahsin: "-", tahfidz: "Al-haqqah : 11" },
+            { no: 16, name: "Muhammad Al Fatih", class: "7", halaqah: "MADINAH", tahsin: "-", tahfidz: "Al-mujadalah : 22" },
+            { no: 17, name: "Jasmine Shakira Basalamah", class: "7", halaqah: "MADINAH", tahsin: "-", tahfidz: "Al-jin : 17" },
+            { no: 18, name: "Naila", class: "8", halaqah: "MADINAH", tahsin: "-", tahfidz: "Al-mudatsir : 37" },
+            
+            // ISTANBUL
+            { no: 1, name: "Ammar Yusra Firmansyah", class: "8", halaqah: "ISTANBUL", tahsin: "Jilid 3 hal: 7", tahfidz: "An Naba - An Nas selesai" },
+            { no: 2, name: "Auffaizan Ramdhan Nurhaedi", class: "7", halaqah: "ISTANBUL", tahsin: "jilid 3 hal: 8", tahfidz: "An Naba - An Nas selesai" },
+            { no: 3, name: "Azalea Zillan Zalila", class: "7", halaqah: "ISTANBUL", tahsin: "Jilid 3 hal 7", tahfidz: "An Naba - At Thoriq selesai" },
+            { no: 4, name: "Isma Priyani Rahmatillah", class: "7", halaqah: "ISTANBUL", tahsin: "Jilid 3 hal 12", tahfidz: "An Naba - Al Qolam:45" },
+            { no: 5, name: "Kanaya Setia Althafunnisa", class: "7", halaqah: "ISTANBUL", tahsin: "Jilid 3 hal 12", tahfidz: "An Naba - Al Qolam:45" },
+            { no: 6, name: "Karin Tanisha Nakhla", class: "7", halaqah: "ISTANBUL", tahsin: "Jilid 3 hal 10", tahfidz: "An- Naba - Al Balad: 15" },
+            { no: 7, name: "Muhammad Alfarizi", class: "7", halaqah: "ISTANBUL", tahsin: "Jilid 3 hal 4", tahfidz: "An Naba - Al Fajr: 25" },
+            { no: 8, name: "Muhammad Rayyan", class: "7", halaqah: "ISTANBUL", tahsin: "Jilid 3 hal 4", tahfidz: "An Naba - At Taqwir: 20" },
+            { no: 9, name: "Muhammad Yusuf Satria", class: "9", halaqah: "ISTANBUL", tahsin: "Jilid 3 hal 4", tahfidz: "An Nas - 'Abasa: 42" },
+            { no: 10, name: "Naufal Farrast", class: "8", halaqah: "ISTANBUL", tahsin: "Jilid 3 hal 5", tahfidz: "An Naba - At Thoriq selesai" },
+            { no: 11, name: "Naufal Youna Wibowo", class: "9", halaqah: "ISTANBUL", tahsin: "Jilid 3 hal 7", tahfidz: "An Naba - Al Ghasyiyah selesai" },
+            { no: 12, name: "Rafa Shifan Galih", class: "9", halaqah: "ISTANBUL", tahsin: "Jilid 3 hal 6", tahfidz: "Al Mulk - Al Haqqoh: 11" },
+            { no: 13, name: "Rafasya Fathan Alfareezqi", class: "7", halaqah: "ISTANBUL", tahsin: "Jilid 3 hal 9", tahfidz: "An Naba - Al Mulk: 12" },
+            { no: 14, name: "Raihan Khiar Zanuar", class: "7", halaqah: "ISTANBUL", tahsin: "Jilid 3 hal 5", tahfidz: "An Naba - Al Muthaffifin:36" },
+            { no: 15, name: "Rifky Azhar Kurniawan", class: "9", halaqah: "ISTANBUL", tahsin: "Jilid 3 hal 6", tahfidz: "Al Mulk - Al Haqqoh: 11" },
+            { no: 16, name: "Zain Dimas Askar", class: "9", halaqah: "ISTANBUL", tahsin: "Jilid 3 hal 7", tahfidz: "Al Mulk - Al-Haqqoh : 25" },
+            { no: 17, name: "Archita Devi Alya ramadhani", class: "8", halaqah: "ISTANBUL", tahsin: "Jilid 3 hal 7", tahfidz: "An Naba - Al Infithar: 19" },
+            { no: 18, name: "Alysha Syakira", class: "8", halaqah: "ISTANBUL", tahsin: "Jilid 3 hal 10", tahfidz: "An Naba - 'Abasa: 42" }
+        ];
+
+        // Fungsi untuk menampilkan data siswa
+        function displayStudents(students) {
+            const grid = document.getElementById('studentGrid');
+            grid.innerHTML = '';
+
+            if (students.length === 0) {
+                grid.innerHTML = `
+                    <div class="no-data">
+                        <div>🔍</div>
+                        <p>Tidak ada data siswa yang ditemukan</p>
+                    </div>
+                `;
+                document.getElementById('filteredCount').textContent = '0';
+                return;
+            }
+
+            students.forEach(student => {
+                const card = document.createElement('div');
+                card.className = 'student-card';
+                card.onclick = () => showStudentDetail(student);
+                
+                // Tentukan badge halaqah
+                let halaqahBadgeClass = '';
+                if (student.halaqah === 'SUPER CLASS') halaqahBadgeClass = 'badge-super';
+                else if (student.halaqah === 'MAKKAH') halaqahBadgeClass = 'badge-makkah';
+                else if (student.halaqah === 'MADINAH') halaqahBadgeClass = 'badge-madinah';
+                else if (student.halaqah === 'ISTANBUL') halaqahBadgeClass = 'badge-istanbul';
+                
+                card.innerHTML = `
+                    <div class="student-header">
+                        <div class="student-number">${student.no}</div>
+                        <div class="student-info">
+                            <div class="student-name">${student.name}</div>
+                            <div>
+                                <span class="student-class">Kelas ${student.class}</span>
+                                <span class="halaqah-badge ${halaqahBadgeClass}">${student.halaqah}</span>
+                            </div>
+                        </div>
+                    </div>
+                    ${student.halaqah === 'ISTANBUL' ? `
+                    <div class="achievement">
+                        <div class="achievement-label">📖 Tahsin</div>
+                        <div class="achievement-value">${student.tahsin || '-'}</div>
+                    </div>
+                    ` : ''}
+                    <div class="achievement">
+                        <div class="achievement-label">🕌 Tahfidz</div>
+                        <div class="achievement-value">${student.tahfidz || '-'}</div>
+                        ${student.tahfidz && student.tahfidz.includes('Juz') ? `
+                        <div class="juz-info">
+                            📚 ${student.tahfidz.match(/\(([^)]+)\)/)?.[1] || ''}
+                        </div>
+                        ` : ''}
+                    </div>
+                `;
+                
+                grid.appendChild(card);
+            });
+
+            document.getElementById('filteredCount').textContent = students.length;
+        }
+
+        // Fungsi filter siswa
+        function filterStudents() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            const halaqahFilter = document.getElementById('halaqahFilter').value;
+            const classFilter = document.getElementById('classFilter').value;
+            const subjectFilter = document.getElementById('subjectFilter').value;
+
+            let filtered = studentsData.filter(student => {
+                const matchName = student.name.toLowerCase().includes(searchTerm);
+                const matchHalaqah = halaqahFilter === '' || student.halaqah === halaqahFilter;
+                const matchClass = classFilter === '' || student.class === classFilter;
+                return matchName && matchHalaqah && matchClass;
+            });
+
+            if (subjectFilter !== '') {
+                if (subjectFilter === 'tahsin') {
+                    filtered = filtered.filter(student => 
+                        student.halaqah === 'ISTANBUL' && student.tahsin && 
+                        student.tahsin.toLowerCase().includes(searchTerm)
+                    );
+                } else if (subjectFilter === 'tahfidz') {
+                    filtered = filtered.filter(student => 
+                        student.tahfidz && student.tahfidz.toLowerCase().includes(searchTerm)
+                    );
+                }
+            }
+
+            displayStudents(filtered);
+            
+            // Update active tab
+            updateActiveTab(halaqahFilter);
+        }
+
+        // Fungsi filter by halaqah dari tabs
+        function filterByHalaqah(halaqah) {
+            document.getElementById('halaqahFilter').value = halaqah;
+            filterStudents();
+        }
+
+        // Update active tab
+        function updateActiveTab(halaqah) {
+            const tabs = document.querySelectorAll('.halaqah-tab');
+            tabs.forEach(tab => tab.classList.remove('active'));
+            
+            if (halaqah === '') {
+                tabs[0].classList.add('active');
+            } else {
+                const tabIndex = {
+                    'SUPER CLASS': 1,
+                    'MAKKAH': 2,
+                    'MADINAH': 3,
+                    'ISTANBUL': 4
+                }[halaqah];
+                if (tabIndex !== undefined) {
+                    tabs[tabIndex].classList.add('active');
+                }
+            }
+        }
+
+        // Fungsi untuk menampilkan detail siswa
+        function showStudentDetail(student) {
+            const modal = document.getElementById('studentModal');
+            const modalName = document.getElementById('modalStudentName');
+            const modalContent = document.getElementById('modalContent');
+
+            // Tentukan badge halaqah
+            let halaqahBadgeClass = '';
+            if (student.halaqah === 'SUPER CLASS') halaqahBadgeClass = 'badge-super';
+            else if (student.halaqah === 'MAKKAH') halaqahBadgeClass = 'badge-makkah';
+            else if (student.halaqah === 'MADINAH') halaqahBadgeClass = 'badge-madinah';
+            else if (student.halaqah === 'ISTANBUL') halaqahBadgeClass = 'badge-istanbul';
+            
+            modalName.innerHTML = `
+                ${student.name}
+                <br>
+                <span style="font-size: 0.7em; font-weight: normal; color: #6b7280;">
+                    Kelas ${student.class} - 
+                    <span class="halaqah-badge ${halaqahBadgeClass}" style="margin-left: 8px; padding: 3px 10px; font-size: 0.8em;">
+                        ${student.halaqah}
+                    </span>
+                </span>
+            `;
+            
+            let contentHTML = '';
+            
+            if (student.halaqah === 'ISTANBUL') {
+                contentHTML += `
+                    <div class="modal-detail">
+                        <div class="modal-label">📖 Tahsin</div>
+                        <div class="modal-value">${student.tahsin || '-'}</div>
+                    </div>
+                `;
+            }
+            
+            contentHTML += `
+                <div class="modal-detail">
+                    <div class="modal-label">🕌 Tahfidz</div>
+                    <div class="modal-value">${student.tahfidz || '-'}</div>
+                </div>
+            `;
+            
+            // Tambahkan info Juz jika ada
+            if (student.tahfidz && student.tahfidz.includes('Juz')) {
+                const juzMatch = student.tahfidz.match(/\(([^)]+)\)/);
+                if (juzMatch) {
+                    contentHTML += `
+                        <div class="modal-detail" style="background: #fef3c7; border-left-color: #f59e0b;">
+                            <div class="modal-label" style="color: #92400e;">📚 Juz yang Telah Dihafal</div>
+                            <div class="modal-value" style="color: #92400e; font-size: 1.1em;">
+                                ${juzMatch[1]}
+                            </div>
+                        </div>
+                    `;
+                }
+            }
+
+            modalContent.innerHTML = contentHTML;
+            modal.style.display = 'flex';
+        }
+
+        // Fungsi untuk menutup modal
+        function closeModal() {
+            document.getElementById('studentModal').style.display = 'none';
+        }
+
+        // Tutup modal saat klik di luar konten
+        window.onclick = function(event) {
+            const modal = document.getElementById('studentModal');
+            if (event.target === modal) {
+                closeModal();
+            }
+        }
+
+        // Inisialisasi
+        window.onload = function() {
+            displayStudents(studentsData);
+            document.getElementById('totalStudents').textContent = studentsData.length;
+            document.getElementById('filteredCount').textContent = studentsData.length;
+            
+            // Set initial active tab
+            updateActiveTab('');
+        };
+    </script>
+</body>
+</html>
